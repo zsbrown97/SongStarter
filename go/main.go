@@ -1,11 +1,19 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"math/rand"
+	"net/http"
 
 	"github.com/zsbrown97/songStarter/song"
 )
+
+type SongStart struct {
+	KeySignature string `json:"keySignature"`
+	Chords string `json:"chords"`
+	Instrument string `json:"instrument"`
+}
 
 var instruments = []string {
 	"Piano",
@@ -15,20 +23,31 @@ var instruments = []string {
 }
 
 func main() {
+	http.HandleFunc("/api/songstart", songStartHandler)
+	fmt.Println("Server running on http://localhost:8080")
+	http.ListenAndServe(":8080", nil)
+}
+
+func songStartHandler(w http.ResponseWriter, r *http.Request) {
 	majorMinor := rand.Intn(2)
 	instrument := rand.Intn(len(instruments))
-	randomSongStart(majorMinor, instrument)
-}
 
-func randomSongStart(m int, i int) {
-	fmt.Println("Key Signature: " + song.KeySignature(m))
-	switch m {
+	var chords string
+
+	switch majorMinor {
 	case 0:
-		fmt.Println("Here are some chords: " + song.MajorProgression(4))
+		chords = song.MajorProgression(4)
 	case 1:
-		fmt.Println("Here are some chords: " + song.NaturalMinorProgression(4))
+		chords = song.NaturalMinorProgression(4)
 	}
-	fmt.Println("Start with a " + instruments[i])
+
+	result := SongStart{
+		KeySignature: song.KeySignature(majorMinor),
+		Chords: chords,
+		Instrument: instruments[instrument],
+	}
+
+	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(result)
 }
-
-
