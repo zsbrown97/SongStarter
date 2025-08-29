@@ -21,6 +21,13 @@
 # Go workspace file
 go.work
 
+### Svelte ###
+# gitignore template for the SvelteKit, frontend web component framework
+# website: https://kit.svelte.dev/
+
+.svelte-kit/
+package
+
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
@@ -42,3 +49,30 @@ go.work
 
 ### Others ###
 .DS_Store
+
+
+### Copied from SvelteKit default gitignore ###
+node_modules
+
+# Output
+.output
+.vercel
+.netlify
+.wrangler
+/.svelte-kit
+/build
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.*
+!.env.example
+!.env.test
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
