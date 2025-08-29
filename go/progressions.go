@@ -1,0 +1,78 @@
+package main
+
+import (
+	"math/rand"
+	"strings"
+)
+
+func progression(len int, majorMinor int) string {
+	progression := ""
+	for range len {
+		progression += chord(majorMinor) + " "
+	}
+	return strings.TrimSpace(progression)
+}
+
+func majorProgression(length int) string {
+	// I ii iii IV V vi vii°
+	progression := []string {chord(0)} 
+
+	for i := 1; i < length; i++ {
+		lastChord := progression[len(progression)-1]
+		var nextChords []string
+
+		switch lastChord{
+		case "I":
+			nextChords = append(nextChords, chord(0))
+		case "ii":
+			nextChords = append(nextChords,"V", "vii°")
+		case "iii":
+			nextChords = append(nextChords, "ii", "IV", "vi")
+		case "IV":
+			nextChords = append(nextChords, "ii", "V", "vii°")
+		case "V":
+			nextChords = append(nextChords, "I", "vi", "vii°")
+		case "vi":
+			nextChords = append(nextChords, "ii", "IV")
+		case "vii°":
+			nextChords = append(nextChords, "I", "V", "vi")
+		}
+
+		nextChordIndex := rand.Intn(len(nextChords))
+		progression = append(progression, nextChords[nextChordIndex])
+	}
+
+	return strings.Join(progression, " ")
+}
+
+func naturalMinorProgression(length int) string {
+	// i ii° III iv v VI VII 
+	progression := []string {chord(1)} 
+
+	for i := 1; i < length; i++ {
+		lastChord := progression[len(progression)-1]
+		var nextChords []string
+
+		switch lastChord{
+		case "i":
+			nextChords = append(nextChords, chord(1))
+		case "ii°":
+			nextChords = append(nextChords,"v", "VII")
+		case "III":
+			nextChords = append(nextChords, "ii°", "iv", "VI")
+		case "iv":
+			nextChords = append(nextChords, "ii°", "v", "VII")
+		case "v":
+			nextChords = append(nextChords, "i", "VI", "VII")
+		case "VI":
+			nextChords = append(nextChords, "ii°", "iv")
+		case "VII":
+			nextChords = append(nextChords, "i", "v", "VI")
+		}
+
+		nextChordIndex := rand.Intn(len(nextChords))
+		progression = append(progression, nextChords[nextChordIndex])
+	}
+
+	return strings.Join(progression, " ")
+}
