@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"math/rand"
+
+	"github.com/zsbrown97/songStarter/song"
 )
 
 var instruments = []string {
@@ -19,12 +21,12 @@ func main() {
 }
 
 func randomSongStart(m int, i int) {
-	fmt.Println("Key Signature: " + keySignature(m))
+	fmt.Println("Key Signature: " + song.KeySignature(m))
 	switch m {
 	case 0:
-		fmt.Println("Here are some chords: " + majorProgression(4))
+		fmt.Println("Here are some chords: " + song.MajorProgression(4))
 	case 1:
-		fmt.Println("Here are some chords: " + naturalMinorProgression(4))
+		fmt.Println("Here are some chords: " + song.NaturalMinorProgression(4))
 	}
 	fmt.Println("Start with a " + instruments[i])
 }

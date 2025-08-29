@@ -1,8 +1,8 @@
-package main
+package song
 
 import "math/rand"
 
-func chord(majorMinor int) string {
+func Chord(majorMinor int) string {
 	chords := [7][2]string {
 		{"I", "i"},
 		{"ii", "ii°"},

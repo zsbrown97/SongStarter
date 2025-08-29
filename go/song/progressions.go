@@ -1,21 +1,21 @@
-package main
+package song
 
 import (
 	"math/rand"
 	"strings"
 )
 
-func progression(len int, majorMinor int) string {
+func Progression(len int, majorMinor int) string {
 	progression := ""
 	for range len {
-		progression += chord(majorMinor) + " "
+		progression += Chord(majorMinor) + " "
 	}
 	return strings.TrimSpace(progression)
 }
 
-func majorProgression(length int) string {
+func MajorProgression(length int) string {
 	// I ii iii IV V vi vii°
-	progression := []string {chord(0)} 
+	progression := []string {Chord(0)} 
 
 	for i := 1; i < length; i++ {
 		lastChord := progression[len(progression)-1]
@@ -23,7 +23,7 @@ func majorProgression(length int) string {
 
 		switch lastChord{
 		case "I":
-			nextChords = append(nextChords, chord(0))
+			nextChords = append(nextChords, Chord(0))
 		case "ii":
 			nextChords = append(nextChords,"V", "vii°")
 		case "iii":
@@ -45,9 +45,9 @@ func majorProgression(length int) string {
 	return strings.Join(progression, " ")
 }
 
-func naturalMinorProgression(length int) string {
+func NaturalMinorProgression(length int) string {
 	// i ii° III iv v VI VII 
-	progression := []string {chord(1)} 
+	progression := []string {Chord(1)} 
 
 	for i := 1; i < length; i++ {
 		lastChord := progression[len(progression)-1]
@@ -55,7 +55,7 @@ func naturalMinorProgression(length int) string {
 
 		switch lastChord{
 		case "i":
-			nextChords = append(nextChords, chord(1))
+			nextChords = append(nextChords, Chord(1))
 		case "ii°":
 			nextChords = append(nextChords,"v", "VII")
 		case "III":

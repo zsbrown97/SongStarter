@@ -1,8 +1,8 @@
-package main
+package song
 
 import "math/rand"
 
-func keySignature(majorMinor int) string {
+func KeySignature(majorMinor int) string {
 	keys := [12][2]string {
 		{"C", "Am"},
 		{"G", "Em"},
