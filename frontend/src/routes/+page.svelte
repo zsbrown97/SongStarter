@@ -1,4 +1,6 @@
 <script lang="ts">
+    import GenerateButton from "$lib/components/GenerateButton.svelte";
+
     let songStart: {
         keySignature: string,
         chords: string,
@@ -12,10 +14,15 @@
     }
 </script>
 
-<button on:click={getSongStart}>Get Song Bones</button>
+<div class="flex column h-screen items-center justify-center">
+    <GenerateButton
+        onClick={getSongStart}
+        text="Get Song Bones"
+    />
 
-{#if songStart}
-    <p><strong>Key Signature:</strong> {songStart.keySignature}</p>
-    <p><strong>Chords:</strong> {songStart.chords}</p>
-    <p><strong>Instrument:</strong> {songStart.instrument}</p>
-{/if}
+    {#if songStart}
+        <p><strong>Key Signature:</strong> {songStart.keySignature}</p><br/>
+        <p><strong>Chords:</strong> {songStart.chords}</p><br/>
+        <p><strong>Instrument:</strong> {songStart.instrument}</p>
+    {/if}
+</div>
