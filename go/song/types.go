@@ -1,12 +1,12 @@
-package main
+package song
 
 type Key struct {
-	Root string
-	Mode string
+	Root  string
+	Mode  string
 	Notes []Note
 }
 
 type Note struct {
-	Note string
+	Note   string
 	Degree string
 }
