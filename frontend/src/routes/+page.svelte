@@ -14,15 +14,23 @@
     }
 </script>
 
-<div class="flex column h-screen items-center justify-center">
-    <GenerateButton
-        onClick={getSongStart}
-        text="Get Song Bones"
-    />
+<div class="flex flex-col h-screen items-center justify-center">
+    <div class="p-4 w-72 bg-white/10 rounded shadow">
+        <GenerateButton onClick={getSongStart} text="Get Song Bones" />
 
-    {#if songStart}
-        <p><strong>Key Signature:</strong> {songStart.keySignature}</p><br/>
-        <p><strong>Chords:</strong> {songStart.chords}</p><br/>
-        <p><strong>Instrument:</strong> {songStart.instrument}</p>
-    {/if}
+        <div class="flex flex-col gap-4 mt-8">
+            <div class="flex justify-between">
+                <strong>Key Signature:</strong> 
+                <span>{songStart?.keySignature}</span>
+            </div>
+            <div class="flex justify-between">
+                <strong>Chords:</strong> 
+                <span>{songStart?.chords}</span>
+            </div>
+            <div class="flex justify-between">
+                <strong>Instrument:</strong>
+                <span>{songStart?.instrument}</span>
+            </div>
+        </div>
+    </div>
 </div>
