@@ -1,7 +1,7 @@
 <script lang="ts">
     import GenerateButton from "$lib/components/GenerateButton.svelte";
 
-    let songStart: {
+    let songBones: {
         keySignature: string,
         chords: string,
         instrument: string
@@ -9,8 +9,7 @@
 
     async function getSongStart() {
         const res = await fetch('http://localhost:8080/api/songstart');
-        songStart = await res.json()
-        console.log(songStart)
+        songBones = await res.json()
     }
 </script>
 
@@ -21,15 +20,15 @@
         <div class="flex flex-col gap-4 mt-8">
             <div class="flex justify-between">
                 <strong>Key Signature:</strong> 
-                <span>{songStart?.keySignature}</span>
+                <span>{songBones?.keySignature}</span>
             </div>
             <div class="flex justify-between">
                 <strong>Chords:</strong> 
-                <span>{songStart?.chords}</span>
+                <span>{songBones?.chords}</span>
             </div>
             <div class="flex justify-between">
                 <strong>Instrument:</strong>
-                <span>{songStart?.instrument}</span>
+                <span>{songBones?.instrument}</span>
             </div>
         </div>
     </div>
