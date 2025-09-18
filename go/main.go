@@ -12,6 +12,7 @@ import (
 type SongStart struct {
 	KeySignature string `json:"keySignature"`
 	Chords string `json:"chords"`
+	Romans string `json:"romans"`
 	Instrument string `json:"instrument"`
 }
 
@@ -33,17 +34,22 @@ func songStartHandler(w http.ResponseWriter, r *http.Request) {
 	instrument := rand.Intn(len(instruments))
 
 	var chords string
+	var romans string
 
 	switch majorMinor {
 	case 0:
-		chords = song.MajorProgression(4)
+		chords = song.LetteredProgression(song.Key, 4, 0)
+		romans = song.RomanProgression(4, 0)
+
 	case 1:
-		chords = song.NaturalMinorProgression(4)
+		chords = song.LetteredProgression(song.Key, 4, 1)
+		romans = song.RomanProgression(4, 1)
 	}
 
 	result := SongStart{
 		KeySignature: song.KeySignature(majorMinor),
 		Chords: chords,
+		Romans: romans,
 		Instrument: instruments[instrument],
 	}
 
