@@ -10,47 +10,33 @@ import (
 )
 
 type SongStart struct {
+	Chords       string `json:"chords"`
+	Instrument   string `json:"instrument"`
 	KeySignature string `json:"keySignature"`
-	Chords string `json:"chords"`
-	Romans string `json:"romans"`
-	Instrument string `json:"instrument"`
-}
-
-var instruments = []string {
-	"Piano",
-	"Guitar",
-	"Bass",
-	"Synth",
+	Numerals     string `json:"numerals"`
 }
 
 func main() {
-	http.HandleFunc("/api/songstart", songStartHandler)
+	http.HandleFunc("/api/songbones", songBonesHandler)
 	fmt.Println("Server running on http://localhost:8080")
 	http.ListenAndServe(":8080", nil)
 }
 
-func songStartHandler(w http.ResponseWriter, r *http.Request) {
-	majorMinor := rand.Intn(2)
-	instrument := rand.Intn(len(instruments))
+func songBonesHandler(w http.ResponseWriter, r *http.Request) {
+	var instrumentIndex int = rand.Intn(len(Instruments))
+	var majorMinor int = rand.Intn(2) // 0 = major, 1 = minor
+	var key string = GetKeySignature(majorMinor)
+	
+	progression := song.ChordProgression(key, 4, majorMinor)
 
-	var chords string
-	var romans string
-
-	switch majorMinor {
-	case 0:
-		chords = song.LetteredProgression(song.Key, 4, 0)
-		romans = song.RomanProgression(4, 0)
-
-	case 1:
-		chords = song.LetteredProgression(song.Key, 4, 1)
-		romans = song.RomanProgression(4, 1)
-	}
+	var chords string = Stringify(progression[0])
+	var numerals string = Stringify(progression[1])
 
 	result := SongStart{
-		KeySignature: song.KeySignature(majorMinor),
 		Chords: chords,
-		Romans: romans,
-		Instrument: instruments[instrument],
+		Instrument: Instruments[instrumentIndex],
+		KeySignature: key,
+		Numerals: numerals,
 	}
 
 	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
