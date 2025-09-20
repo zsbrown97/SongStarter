@@ -15,10 +15,11 @@
 </script>
 
 <div class="p-4 w-72 bg-white/10 rounded shadow">
-    <GenerateButton 
-        onClick={getSongBones} text="Get Song Bones" 
-    />
-
+    <div class="flex justify-center"> 
+        <GenerateButton 
+            onClick={getSongBones} text="Get Song Bones" 
+        />
+    </div>
     <div class="flex flex-col gap-4 mt-8">
         <div class="flex justify-between">
             <strong>Key Signature:</strong> 
